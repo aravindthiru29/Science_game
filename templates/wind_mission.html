@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind District Mission</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="mission-page">
+    <main class="mission-layout">
+        <aside class="sidebar-panel">
+            <a class="back-link" href="{{ url_for('city') }}">← Back to City</a>
+            <h1>{{ mission.title }}</h1>
+            <p>{{ mission.guide_intro }}</p>
+            <div class="status-stack">
+                <div class="status-box">Science XP: <strong id="xpValue">{{ progress.xp }}</strong></div>
+                <div class="status-box">Rank: <strong id="rankValue">{{ progress.rank }}</strong></div>
+            </div>
+            <div class="dr-nova-panel">
+                <h2>Dr. Nova</h2>
+                <p id="guideText">{{ mission.guide_hint }}</p>
+            </div>
+        </aside>
+
+        <section class="mission-stage">
+            <div class="mission-topbar">
+                <div class="status-pill">Mission: Wind District</div>
+                <div class="status-pill" id="missionState">Drying towers paused</div>
+            </div>
+            <canvas id="missionCanvas" width="920" height="500"></canvas>
+            <section class="quiz-panel">
+                <h2>{{ mission.question }}</h2>
+                <div id="options" class="answer-grid"></div>
+                <div class="button-row">
+                    <button id="checkAnswers" class="button primary">Check Answer</button>
+                    <button id="resetMission" class="button secondary">Reset Mission</button>
+                </div>
+                <p id="feedbackText">Study the clothesline animation and choose the best explanation.</p>
+            </section>
+        </section>
+    </main>
+
+    <script id="mission-json" type="application/json">{{ mission|tojson }}</script>
+    <script type="module" src="{{ url_for('static', filename='js/ui/missionUI.js') }}"></script>
+</body>
+</html>

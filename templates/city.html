@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Science City - Explore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="city-page">
+    <main class="city-layout">
+        <aside class="sidebar-panel">
+            <a class="back-link" href="{{ url_for('index') }}">← Main Menu</a>
+            <h1>Science City Map</h1>
+            <p>Walk with <strong>W A S D</strong>, move the camera with the mouse, and click a mission marker when you get close.</p>
+            <div class="status-stack">
+                <div class="status-box">Science XP: <strong id="xpValue">{{ progress.xp }}</strong></div>
+                <div class="status-box">Rank: <strong id="rankValue">{{ progress.rank }}</strong></div>
+                <div class="status-box">Missions Online: <strong id="completedCount">{{ progress.completed_missions|length }}</strong>/3</div>
+            </div>
+
+            <div class="mission-list">
+                {% for mission in missions %}
+                <div class="mission-card {% if mission.id in progress.completed_missions %}complete{% endif %}">
+                    <strong>{{ mission.title }}</strong>
+                    <span>{{ mission.building }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="dr-nova-panel">
+                <h2>Dr. Nova</h2>
+                <p id="cityDialogue">Science City still needs your help. Head toward a glowing building to start a mission.</p>
+            </div>
+        </aside>
+
+        <section class="city-stage">
+            <div id="cityCanvas"></div>
+            <div id="missionOverlay" class="mission-overlay hidden">
+                <h2 id="overlayTitle">Mission Ready</h2>
+                <p id="overlayText">Step closer to a building to begin a mission.</p>
+                <button id="overlayButton" class="button primary">Enter Mission</button>
+            </div>
+        </section>
+    </main>
+
+    <script id="mission-data" type="application/json">{{ missions|tojson }}</script>
+    <script id="progress-data" type="application/json">{{ progress|tojson }}</script>
+    <script type="module" src="{{ url_for('static', filename='js/city/scene.js') }}"></script>
+</body>
+</html>

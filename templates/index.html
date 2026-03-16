@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Science City</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="home-page">
+    <main class="home-shell">
+        <section class="hero-panel">
+            <p class="eyebrow">3D Educational Adventure</p>
+            <h1>Nova Science City</h1>
+            <p class="hero-copy">
+                Explore a futuristic city, repair broken science machines, and help Dr. Nova bring each district back to life.
+            </p>
+            <div class="status-row">
+                <div class="status-pill">Science XP: <strong id="xpValue">{{ progress.xp }}</strong></div>
+                <div class="status-pill">Rank: <strong id="rankValue">{{ progress.rank }}</strong></div>
+                <div class="status-pill">Solved Missions: <strong>{{ progress.completed_missions|length }}</strong></div>
+            </div>
+            <div class="cta-row">
+                <a class="button primary" href="{{ url_for('city') }}">Enter Science City</a>
+            </div>
+        </section>
+
+        <section class="district-grid">
+            <article class="district-card wind">
+                <h2>Wind District</h2>
+                <p>Repair the drying towers by understanding evaporation and moving air.</p>
+            </article>
+            <article class="district-card magnet">
+                <h2>Magnet Factory</h2>
+                <p>Restart the robot arms by sorting which objects a magnet can attract.</p>
+            </article>
+            <article class="district-card bounce">
+                <h2>Sports Arena</h2>
+                <p>Test restitution and bounce energy to unlock the stadium systems.</p>
+            </article>
+            <article class="district-card energy">
+                <h2>Energy Plant</h2>
+                <p>Lights brighten as you complete missions and bring the city online.</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
