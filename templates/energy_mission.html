@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magnet Factory Mission</title>
+    <title>Energy Plant Mission</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body class="mission-page">
@@ -24,8 +24,8 @@
 
         <section class="mission-stage">
             <div class="mission-topbar">
-                <div class="status-pill">Mission: Magnet Factory</div>
-                <div class="status-pill" id="missionState">Dr. Nova's magnet demo</div>
+                <div class="status-pill">Mission: Energy Plant</div>
+                <div class="status-pill" id="missionState">Dr. Nova's circuit demo</div>
             </div>
             <canvas id="missionCanvas" width="920" height="500"></canvas>
             <section class="quiz-panel">
@@ -35,7 +35,7 @@
                     <button id="checkAnswers" class="button primary">Check Answer</button>
                     <button id="resetMission" class="button secondary">Reset Mission</button>
                 </div>
-                <p id="feedbackText">Select every object the magnet can attract.</p>
+                <p id="feedbackText">Watch the wires and find the path that forms a full circuit.</p>
                 <div class="explanation-panel" id="explanationPanel">
                     <h3>Dr. Nova's explanation</h3>
                     <p id="explanationText">{{ mission.guide_intro }}</p>

@@ -10,34 +10,43 @@
     <main class="city-layout">
         <aside class="sidebar-panel">
             <a class="back-link" href="{{ url_for('index') }}">← Main Menu</a>
-            <h1>Science City Map</h1>
-            <p>Walk with <strong>W A S D</strong>, move the camera with the mouse, and click a mission marker when you get close.</p>
+            <h1>Dr. Nova's Science City</h1>
+            <p>Walk around the city, visit a lab, and listen to Dr. Nova's science explanation before answering a question. Use <strong>W A S D</strong> on laptop or the touch pad on mobile.</p>
             <div class="status-stack">
                 <div class="status-box">Science XP: <strong id="xpValue">{{ progress.xp }}</strong></div>
                 <div class="status-box">Rank: <strong id="rankValue">{{ progress.rank }}</strong></div>
-                <div class="status-box">Missions Online: <strong id="completedCount">{{ progress.completed_missions|length }}</strong>/3</div>
+                <div class="status-box">Missions Online: <strong id="completedCount">{{ progress.completed_missions|length }}</strong>/4</div>
             </div>
 
             <div class="mission-list">
                 {% for mission in missions %}
-                <div class="mission-card {% if mission.id in progress.completed_missions %}complete{% endif %}">
+                <a class="mission-card mission-link {{ mission.id }} {% if mission.id in progress.completed_missions %}complete{% endif %}" href="/{{ mission.id }}">
+                    <span class="mission-badge mission-badge-{{ mission.id }}" aria-hidden="true">
+                        {% if mission.id == "wind" %}WIND{% elif mission.id == "magnet" %}MAGNET{% elif mission.id == "bounce" %}BOUNCE{% else %}ENERGY{% endif %}
+                    </span>
                     <strong>{{ mission.title }}</strong>
                     <span>{{ mission.building }}</span>
-                </div>
+                </a>
                 {% endfor %}
             </div>
 
             <div class="dr-nova-panel">
                 <h2>Dr. Nova</h2>
-                <p id="cityDialogue">Science City still needs your help. Head toward a glowing building to start a mission.</p>
+                <p id="cityDialogue">Welcome to Science City. Walk to any lab and I will show you a science idea, then ask you a question.</p>
             </div>
         </aside>
 
         <section class="city-stage">
             <div id="cityCanvas"></div>
+            <div class="touch-controls" id="missionTouchControls" aria-label="Mobile movement controls">
+                <button type="button" class="touch-button up" data-direction="up">UP</button>
+                <button type="button" class="touch-button left" data-direction="left">LEFT</button>
+                <button type="button" class="touch-button down" data-direction="down">DOWN</button>
+                <button type="button" class="touch-button right" data-direction="right">RIGHT</button>
+            </div>
             <div id="missionOverlay" class="mission-overlay hidden">
                 <h2 id="overlayTitle">Mission Ready</h2>
-                <p id="overlayText">Step closer to a building to begin a mission.</p>
+                <p id="overlayText">Step closer to a lab to begin Dr. Nova's explanation.</p>
                 <button id="overlayButton" class="button primary">Enter Mission</button>
             </div>
         </section>

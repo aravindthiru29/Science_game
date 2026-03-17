@@ -57,7 +57,7 @@ export function setupBounceMission() {
 
         if (machineOn) {
             ctx.fillStyle = "#0f9d58";
-            ctx.fillText("Arena systems unlocked", 700, 40);
+            ctx.fillText("Great bounce answer", 700, 40);
         }
 
         requestAnimationFrame(draw);

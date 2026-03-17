@@ -5,6 +5,13 @@ export function setDialogue(text) {
     }
 }
 
+export function setExplanation(text) {
+    const explanation = document.getElementById("explanationText");
+    if (explanation) {
+        explanation.textContent = text;
+    }
+}
+
 export function setMissionState(text) {
     const state = document.getElementById("missionState");
     if (state) {

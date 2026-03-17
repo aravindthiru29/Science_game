@@ -18,9 +18,9 @@ MISSIONS = {
             "Wind pushes water away",
         ],
         "correct": ["Wind removes moist air"],
-        "guide_intro": "The drying towers are stuck. Study the moving air and help the city dry clothes again.",
-        "guide_hint": "Watch what happens to the water droplets when wind speed increases.",
-        "guide_success": "Wind removes humid air near the clothes, so more water molecules can escape.",
+        "guide_intro": "Welcome to the Wind Lab. Dr. Nova is showing how moving air helps water leave wet clothes.",
+        "guide_hint": "Watch what happens near the clothes when the wind gets stronger.",
+        "guide_success": "That's right. Wind carries away the moist air near the clothes, so more water can evaporate.",
     },
     "magnet": {
         "id": "magnet",
@@ -35,9 +35,9 @@ MISSIONS = {
             "steel screw",
         ],
         "correct": ["iron nail", "steel screw"],
-        "guide_intro": "The robot arms are offline. Use the overhead magnet to sort the right materials.",
-        "guide_hint": "Magnets attract some metals, especially ones containing iron.",
-        "guide_success": "Magnets attract materials containing iron, like iron nails and many steel screws.",
+        "guide_intro": "Welcome to the Magnet Factory. Dr. Nova is showing which materials a magnet can pull.",
+        "guide_hint": "Look for objects made from metals that contain iron.",
+        "guide_success": "Correct. Magnets attract materials containing iron, like iron nails and many steel screws.",
     },
     "bounce": {
         "id": "bounce",
@@ -51,9 +51,25 @@ MISSIONS = {
             "Steel",
         ],
         "correct": ["Rubber"],
-        "guide_intro": "The arena launch pads need a bounce test. Compare how much energy each ball returns.",
-        "guide_hint": "A material with higher restitution returns more energy after hitting the floor.",
-        "guide_success": "Rubber has the highest restitution here, so it rebounds the most.",
+        "guide_intro": "Welcome to the Sports Arena. Dr. Nova is comparing how different balls bounce after hitting the floor.",
+        "guide_hint": "The ball that gives back more energy will bounce higher.",
+        "guide_success": "Exactly. Rubber gives back the most energy here, so it bounces the highest.",
+    },
+    "energy": {
+        "id": "energy",
+        "slug": "energy_plant",
+        "title": "Energy Plant",
+        "building": "Energy Plant",
+        "question": "Which path will light the bulb?",
+        "options": [
+            "Closed circuit",
+            "Broken wire",
+            "Battery missing",
+        ],
+        "correct": ["Closed circuit"],
+        "guide_intro": "Welcome to the Energy Plant. Dr. Nova is showing that electricity needs a full path to flow.",
+        "guide_hint": "Watch which line connects the battery to the bulb without any gap.",
+        "guide_success": "Correct. A closed circuit gives electricity a complete path, so the bulb lights up.",
     },
 }
 
@@ -106,6 +122,11 @@ def magnet():
 @app.route("/bounce")
 def bounce():
     return render_template("bounce_mission.html", progress=get_progress(), mission=MISSIONS["bounce"])
+
+
+@app.route("/energy")
+def energy():
+    return render_template("energy_mission.html", progress=get_progress(), mission=MISSIONS["energy"])
 
 
 @app.route("/api/missions")

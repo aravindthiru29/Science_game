@@ -25,7 +25,7 @@
         <section class="mission-stage">
             <div class="mission-topbar">
                 <div class="status-pill">Mission: Wind District</div>
-                <div class="status-pill" id="missionState">Drying towers paused</div>
+                <div class="status-pill" id="missionState">Dr. Nova's wind demo</div>
             </div>
             <canvas id="missionCanvas" width="920" height="500"></canvas>
             <section class="quiz-panel">
@@ -36,6 +36,10 @@
                     <button id="resetMission" class="button secondary">Reset Mission</button>
                 </div>
                 <p id="feedbackText">Study the clothesline animation and choose the best explanation.</p>
+                <div class="explanation-panel" id="explanationPanel">
+                    <h3>Dr. Nova's explanation</h3>
+                    <p id="explanationText">{{ mission.guide_intro }}</p>
+                </div>
             </section>
         </section>
     </main>

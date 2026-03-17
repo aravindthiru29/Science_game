@@ -6,6 +6,12 @@ export class PlayerController {
         this.yaw = 0;
         this.pitch = -0.35;
         this.moveSpeed = 0.14;
+        this.touchMap = {
+            up: ["w"],
+            down: ["s"],
+            left: ["a"],
+            right: ["d"],
+        };
 
         window.addEventListener("keydown", (event) => {
             const key = event.key.toLowerCase();
@@ -24,6 +30,44 @@ export class PlayerController {
             this.yaw -= event.movementX * 0.0025;
             this.pitch -= event.movementY * 0.0018;
             this.pitch = Math.max(-0.95, Math.min(0.15, this.pitch));
+        });
+
+        this.bindTouchControls();
+    }
+
+    bindTouchControls() {
+        const controls = document.getElementById("missionTouchControls");
+        if (!controls) {
+            return;
+        }
+
+        const press = (direction) => {
+            (this.touchMap[direction] || []).forEach((key) => this.keys.add(key));
+        };
+
+        const release = (direction) => {
+            (this.touchMap[direction] || []).forEach((key) => this.keys.delete(key));
+        };
+
+        controls.querySelectorAll("[data-direction]").forEach((button) => {
+            const { direction } = button.dataset;
+            const start = (event) => {
+                event.preventDefault();
+                press(direction);
+                button.classList.add("active");
+            };
+            const end = (event) => {
+                event.preventDefault();
+                release(direction);
+                button.classList.remove("active");
+            };
+
+            button.addEventListener("touchstart", start, { passive: false });
+            button.addEventListener("touchend", end, { passive: false });
+            button.addEventListener("touchcancel", end, { passive: false });
+            button.addEventListener("pointerdown", start);
+            button.addEventListener("pointerup", end);
+            button.addEventListener("pointerleave", end);
         });
     }
 

@@ -12,13 +12,15 @@
             <p class="eyebrow">3D Educational Adventure</p>
             <h1>Nova Science City</h1>
             <p class="hero-copy">
-                Explore a futuristic city, repair broken science machines, and help Dr. Nova bring each district back to life.
+                Visit Dr. Nova's Science City, watch simple science demos, and answer questions as he explains wind, magnets, bouncing, and electricity.
             </p>
             <div class="status-row">
                 <div class="status-pill">Science XP: <strong id="xpValue">{{ progress.xp }}</strong></div>
                 <div class="status-pill">Rank: <strong id="rankValue">{{ progress.rank }}</strong></div>
                 <div class="status-pill">Solved Missions: <strong>{{ progress.completed_missions|length }}</strong></div>
+                <br>
             </div>
+                <br>
             <div class="cta-row">
                 <a class="button primary" href="{{ url_for('city') }}">Enter Science City</a>
             </div>
@@ -26,20 +28,28 @@
 
         <section class="district-grid">
             <article class="district-card wind">
-                <h2>Wind District</h2>
-                <p>Repair the drying towers by understanding evaporation and moving air.</p>
+                <div class="district-chip">WIND LAB</div>
+                <br>
+                <br>
+                <p>Learn how moving air helps wet clothes dry faster.</p>
             </article>
             <article class="district-card magnet">
-                <h2>Magnet Factory</h2>
-                <p>Restart the robot arms by sorting which objects a magnet can attract.</p>
+                <div class="district-chip">MAGNET FACTORY</div>
+                <br>
+                <br>
+                <p>See which objects a magnet can attract and which it cannot.</p>
             </article>
             <article class="district-card bounce">
-                <h2>Sports Arena</h2>
-                <p>Test restitution and bounce energy to unlock the stadium systems.</p>
+                <div class="district-chip">SPORTS ARENA</div>
+                <br>
+                <br>
+                <p>Compare different balls and see which one bounces the highest.</p>
             </article>
             <article class="district-card energy">
-                <h2>Energy Plant</h2>
-                <p>Lights brighten as you complete missions and bring the city online.</p>
+                <div class="district-chip">ENERGY PLANT</div>
+                <br>
+                <br>
+                <p>See how a closed circuit lets electricity flow and light a bulb.</p>
             </article>
         </section>
     </main>

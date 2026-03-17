@@ -1,7 +1,8 @@
 import { setupMagnetMission } from "../physics/magnetPhysics.js";
 import { setupWindMission } from "../physics/windSimulation.js";
 import { setupBounceMission } from "../physics/bouncePhysics.js";
-import { setDialogue, setFeedback, setMissionState } from "./dialogue.js";
+import { setupEnergyMission } from "../physics/energyPhysics.js";
+import { setDialogue, setExplanation, setFeedback, setMissionState } from "./dialogue.js";
 
 const mission = JSON.parse(document.getElementById("mission-json").textContent);
 const optionsHost = document.getElementById("options");
@@ -27,6 +28,7 @@ function createOptions() {
                 selected.add(option);
                 button.classList.add("selected");
             }
+            simulation.updateSelection?.(selected);
         });
         optionsHost.appendChild(button);
     });
@@ -65,6 +67,7 @@ function resetSelection() {
     Array.from(optionsHost.children).forEach((node) => {
         node.classList.remove("selected", "correct", "wrong");
     });
+    simulation.updateSelection?.(selected);
 }
 
 function initSimulation() {
@@ -74,16 +77,20 @@ function initSimulation() {
     if (mission.id === "wind") {
         return setupWindMission();
     }
+    if (mission.id === "energy") {
+        return setupEnergyMission();
+    }
     return setupBounceMission();
 }
 
 const simulation = initSimulation();
 createOptions();
 setDialogue(mission.guide_hint);
+setExplanation(mission.guide_intro);
 
 checkButton.addEventListener("click", async () => {
     if (missionSolved) {
-        setFeedback("This mission is already complete. Head back to the city to explore the next district.");
+        setFeedback("You already finished this activity. Head back to the city to visit another lab.");
         return;
     }
 
@@ -93,9 +100,10 @@ checkButton.addEventListener("click", async () => {
     if (isPerfectSelection(correct)) {
         missionSolved = true;
         await addProgress(30, mission.id, "mission_complete");
-        setMissionState("System online");
-        setFeedback("Perfect mission. The district powers up and you earn 30 XP.");
+        setMissionState("Question answered");
+        setFeedback("Excellent. You understood Dr. Nova's science idea and earned 30 XP.");
         setDialogue(mission.guide_success);
+        setExplanation(mission.guide_success);
         checkButton.disabled = true;
         Array.from(optionsHost.children).forEach((node) => {
             node.disabled = true;
@@ -110,16 +118,18 @@ checkButton.addEventListener("click", async () => {
             await addProgress(10, null, "partial");
             partialRewardGranted = true;
         }
-        setMissionState("Partial fix");
-        setFeedback("Nice start. You found part of the answer. Keep testing to get the full repair.");
+        setMissionState("Good thinking");
+        setFeedback("Nice start. You found part of the answer. Watch Dr. Nova's demo once more and try again.");
         setDialogue(mission.guide_hint);
+        setExplanation(`Almost there: ${mission.guide_hint}`);
         simulation.onPartial?.();
         return;
     }
 
-    setMissionState("Needs more testing");
-    setFeedback("Not quite yet. Study the experiment again and listen to Dr. Nova's hint.");
+    setMissionState("Try the question again");
+    setFeedback("Not quite yet. Watch the demo again and listen to Dr. Nova's hint.");
     setDialogue(mission.guide_hint);
+    setExplanation(`Try again: ${mission.guide_hint}`);
     simulation.onFail?.();
 });
 
@@ -129,7 +139,8 @@ document.getElementById("resetMission").addEventListener("click", () => {
         partialRewardGranted = false;
     }
     simulation.reset?.();
-    setMissionState("Mission reset");
-    setFeedback("Mission reset. Run the experiment again and choose carefully.");
+    setMissionState("Demo restarted");
+    setFeedback("The demo has restarted. Watch carefully and choose your answer.");
     setDialogue(mission.guide_intro);
+    setExplanation(mission.guide_intro);
 });

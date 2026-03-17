@@ -16,7 +16,7 @@ export class MissionLoader {
         this.activeMission = mission;
         if (!mission) {
             this.overlay.classList.add("hidden");
-            this.dialogueElement.textContent = "Science City still needs your help. Head toward a glowing building to start a mission.";
+            this.dialogueElement.textContent = "Walk to any glowing lab. Dr. Nova will explain the science and then ask a question.";
             return;
         }
 
@@ -26,8 +26,8 @@ export class MissionLoader {
 
         this.overlay.classList.remove("hidden");
         this.overlayTitle.textContent = mission.title;
-        this.overlayText.textContent = `${mission.building} is ready. Click Enter Mission or press E to help repair this district.`;
-        this.dialogueElement.textContent = `Dr. Nova: ${mission.title} needs a scientist. Your mouse is unlocked now, so you can enter the mission.`;
+        this.overlayText.textContent = `${mission.building} is ready. Tap Enter Mission on mobile or press E on laptop to visit Dr. Nova's lesson.`;
+        this.dialogueElement.textContent = `Dr. Nova: Come into the ${mission.building}. I will explain ${mission.title.toLowerCase()} and then ask you a question.`;
         this.overlayButton.onclick = () => {
             window.location.href = `/${mission.id}`;
         };
